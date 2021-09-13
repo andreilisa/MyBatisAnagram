@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="AnagramsMapper">
+
+    <select id="showAll" resultType="Anagrams">
+        SELECT distinct ARRAY_AGG(word), wordSort
+        FROM table_test
+        GROUP BY wordSort
+        HAVING COUNT(word) > 1;
+    </select>
+
+    <select id="createFunction">
+        CREATE
+        OR REPLACE FUNCTION sort1(x TEXT) returns TEXT AS
+        $$
+        SELECT string_agg(c, '') as s
+        from (select unnest(regexp_split_to_array($1, '')) as c
+              order by c) as t;
+
+        $$
+        LANGUAGE sql immutable;
+    </select>
+    <select id="createTable">
+        CREATE TABLE IF NOT EXISTS table_test
+        (
+
+            word varchar
+        (
+            20
+        ),
+            wordSort varchar
+        (
+            20
+        ) GENERATED ALWAYS AS
+        (
+            sort1
+        (
+            word
+        ) ) STORED
+            );
+    </select>
+    <select id="write">
+        COPY table_test (word) FROM 'C:\\Users\\andrei.lisa\\IdeaProjects\\qwe\\folder/file.txt';
+    </select>
+
+</mapper>
