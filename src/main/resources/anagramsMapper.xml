@@ -5,10 +5,10 @@
 <mapper namespace="AnagramsMapper">
 
     <select id="showAll" resultType="Anagrams">
-        SELECT distinct ARRAY_AGG(word), wordSort
+        SELECT distinct ARRAY_AGG( distinct word), wordSort
         FROM table_test
         GROUP BY wordSort
-        HAVING COUNT(word) > 1;
+        HAVING COUNT(word) > 3;
     </select>
 
     <select id="createFunction">
