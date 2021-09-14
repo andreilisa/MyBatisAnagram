@@ -15,7 +15,7 @@
         CREATE
         OR REPLACE FUNCTION sort1(x TEXT) returns TEXT AS
         $$
-        SELECT string_agg(c, '') as s
+        SELECT  string_agg(c, '') as s
         from (select unnest(regexp_split_to_array($1, '')) as c
               order by c) as t;
 
@@ -23,6 +23,7 @@
         LANGUAGE sql immutable;
     </select>
     <select id="createTable">
+        DROP  TABLE  If EXISTS table_test;
         CREATE TABLE IF NOT EXISTS table_test
         (
 
