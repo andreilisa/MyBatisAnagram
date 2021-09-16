@@ -9,13 +9,12 @@ import java.io.Reader;
 
 public class Main {
 
-    public static void main(String[] args) throws IOException, InterruptedException {
+    public static void main(String[] args) throws IOException{
 
         Reader reader = Resources.getResourceAsReader("mybatis-config.xml");
         SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(reader);
 
-        SqlSession session = sqlSessionFactory.openSession();
-        try {
+        try (SqlSession session = sqlSessionFactory.openSession()) {
             AnagramsMapper mapper = session.getMapper(AnagramsMapper.class);
             mapper.createFunction();
             mapper.createTable();
@@ -26,8 +25,6 @@ public class Main {
                         .replaceAll("]", " ").replaceAll("\\{", " ")
                         .replaceAll("\\}", " "));
 
-        } finally {
-            session.close();
         }
     }
 }

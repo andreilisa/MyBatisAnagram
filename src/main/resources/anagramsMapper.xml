@@ -41,7 +41,7 @@
         );
     </select>
     <select id="write">
-        COPY table_test (word) FROM 'C:\Users\andrei.lisa\IdeaProjects\qwe\folder\file4.txt';
+        COPY table_test (word) FROM 'C:\Users\andrei.lisa\IdeaProjects\qwe\folder\file.txt';
     </select>
 
 </mapper>
