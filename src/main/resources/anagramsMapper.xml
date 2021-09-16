@@ -4,46 +4,44 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="AnagramsMapper">
 
-    <select id="showAll" resultType="Anagrams">
-        SELECT distinct ARRAY_AGG( distinct word), wordSort
-        FROM table_test
-        GROUP BY wordSort
-        HAVING COUNT(word) > 3;
+    <select id="showAll" parameterType="Anagrams" resultType="String" fetchSize="500">
+        BEGIN;
+        DECLARE curs2 CURSOR FOR
+            SELECT distinct ARRAY_AGG(distinct word), wordSort
+                                 FROM table_test
+                                 GROUP BY wordSort
+                                 HAVING COUNT(word) > 3;
+        FETCH all from curs2;
+
     </select>
 
     <select id="createFunction">
         CREATE
-        OR REPLACE FUNCTION sort1(x TEXT) returns TEXT AS
+            OR REPLACE FUNCTION sort1(x TEXT) returns TEXT AS
         $$
-        SELECT  string_agg(c, '') as s
+        SELECT string_agg(c, '') as s
         from (select unnest(regexp_split_to_array($1, '')) as c
               order by c) as t;
 
         $$
-        LANGUAGE sql immutable;
+            LANGUAGE sql immutable;
     </select>
     <select id="createTable">
-        DROP  TABLE  If EXISTS table_test;
+        DROP TABLE IF EXISTS table_test;
         CREATE TABLE IF NOT EXISTS table_test
         (
 
-            word varchar
-        (
-            20
-        ),
-            wordSort varchar
-        (
-            20
-        ) GENERATED ALWAYS AS
-        (
-            sort1
-        (
-            word
-        ) ) STORED
-            );
+            word     varchar(20),
+            wordSort varchar(20) GENERATED ALWAYS AS
+                         (
+                         sort1
+                             (
+                                 word
+                             ) ) STORED
+        );
     </select>
     <select id="write">
-        COPY table_test (word) FROM 'C:\\Users\\andrei.lisa\\IdeaProjects\\qwe\\folder/file.txt';
+        COPY table_test (word) FROM 'C:\Users\andrei.lisa\IdeaProjects\qwe\folder\file5.txt';
     </select>
 
 </mapper>

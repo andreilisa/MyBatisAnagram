@@ -1,10 +1,8 @@
-import java.util.List;
-
-
+import java.util.TreeSet;
 
 public interface AnagramsMapper {
 
-    List<Anagrams> showAll();
+    TreeSet<String> showAll();
 
     void createFunction();
 

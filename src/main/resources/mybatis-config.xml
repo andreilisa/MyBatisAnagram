@@ -12,6 +12,7 @@
                 <property name="username" value="postgres"/>
                 <property name="password" value="free"/>
             </dataSource>
+          
         </environment>
     </environments>
     <mappers>

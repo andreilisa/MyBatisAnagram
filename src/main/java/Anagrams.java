@@ -10,7 +10,7 @@ public class Anagrams {
 
     @Override
     public String toString() {
-        return " " +
+        return
                 "" +
                 word;
     }
