@@ -12,7 +12,7 @@ public class Anagrams {
     public String toString() {
         return
                 "" +
-                word;
+                        word;
     }
 
 }

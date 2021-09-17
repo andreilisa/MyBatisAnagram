@@ -4,14 +4,14 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="AnagramsMapper">
 
-    <select id="showAll" parameterType="Anagrams" resultType="String" fetchSize="30000">
---         BEGIN;
+    <select id="showAll" parameterType="Anagrams" resultType="Anagrams" fetchSize="500">
+        --         BEGIN;
 --         DECLARE curs2 CURSOR FOR
-            SELECT distinct ARRAY_AGG(distinct word), wordSort
-                                 FROM table_test
-                                 GROUP BY wordSort
-                                 HAVING COUNT(word) > 3;
---         FETCH all from curs2;
+        SELECT distinct ARRAY_AGG(distinct word), wordSort
+        FROM table_test
+        GROUP BY wordSort
+        HAVING COUNT(word) > 3;
+--         FETCH forward 1000 from curs2;
 
     </select>
 
@@ -41,7 +41,7 @@
         );
     </select>
     <select id="write">
-        COPY table_test (word) FROM 'C:\Users\andrei.lisa\IdeaProjects\qwe\folder\file.txt';
+        COPY table_test (word) FROM 'C:\Users\andrei.lisa\IdeaProjects\qwe\folder\file3.txt';
     </select>
 
 </mapper>

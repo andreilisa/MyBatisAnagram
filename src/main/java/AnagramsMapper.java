@@ -1,8 +1,8 @@
-import java.util.TreeSet;
+import org.apache.ibatis.cursor.Cursor;
 
 public interface AnagramsMapper {
 
-    TreeSet<String> showAll();
+    Cursor<Anagrams> showAll();
 
     void createFunction();
 
